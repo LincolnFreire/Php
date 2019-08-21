@@ -1,8 +1,3 @@
-private $cod_fornecedor;
-		private $empresa
-		private $tipo;
-		private $ref;
-
 create table fornecedores(
 	cod_fornecedor serial primary key,
 	empresa varchar(30) not null,
@@ -19,6 +14,25 @@ create table produtos(
 	Fk_forne integer,
 	constraint Fk_forne foreign key (Fk_forne) references fornecedores (cod_fornecedor)  
 );
+
+create table cliente(
+  cod_cliente serial primary key,
+  nome varchar(30),
+  rg varchar(20)
+);
+
+create table cli_prod(
+	cod serial primary key,
+	Fk_cliente integer,
+	Fk_produto integer,
+	data_compra date,
+	quantidade integer,
+	valor_tot numeric(15,2),
+	constraint Fk_cliente foreign key (Fk_cliente) references cliente(cod_cliente),  
+	constraint Fk_produto foreign key (Fk_produto) references fornecedores(cod_fornecedor)  
+);
+
+
 
 drop table produtos;
 
@@ -87,4 +101,15 @@ end;
 $$
 language plpgsql;
 
+
 select updade_fornecedores('ALPRAGATAS','Chinelo', 'HAVAIANAS', 1);
+
+create or replace function inserir_compra(Fk_cli integer, Fk_prod integer, data_comp date, quantidade integer, vlr_tot numeric) returns void as
+$$
+begin
+	insert into cli_prod(Fk_cliente, Fk_produto, data_compra, quantidade, valor_tot)
+	values(Fk_cli, Fk_prod, data_comp, quantidade, vlr_tot);
+
+end;
+$$
+language plpgsql;

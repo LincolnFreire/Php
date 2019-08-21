@@ -37,13 +37,36 @@ class Fornecedor{
 		$this->ref = $ref;
 	}
 
+//----------------------------------------------------
+
+	
+	public function setAll($emp, $tip, $ref){
+		$this->setEmpresa($emp);
+		$this->setTipo($tip);
+		$this->setRef($ref);
+	}
+	
+	
 	public function insert(){
 		$con = new Conexao();
 		$con->select("inserir_fornecedore(:emp, :tip, :ref)", array(":emp" => $this->getEmpresa(),
 																																":tip" => $this->getTipo(),
 																																":ref" => $this->getRef()
-																																));
+	 																															));
 	}
+	
+	public function update($emp, $tip, $ref){
+		$sql = new Conexao();
+		
+		$this->setAll($emp, $tip, $ref);
+		
+		$sql->query("UPDATE cliente SET empresa = :emp,tipo = :tip,refe = :ref",array(':emp' => $this->getEmpresa(),
+																																									':tipo' => $this->getTipo(),
+																																									':ref' => $this->getRef()
+																																									));
+	}
+	
+	
 	
 	
 }
