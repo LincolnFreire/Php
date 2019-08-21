@@ -63,3 +63,28 @@ language plpgsql;
 
 
 select delete_produtos(2)
+
+
+create or replace function inserir_fornecedores(empre varchar, tipo varchar, referencia varchar) returns void as
+$$
+begin
+	insert into fornecedores(empresa, tipo, refe) values(empre, tipo, referencia);
+
+end;
+$$
+language plpgsql;
+
+select inserir_fornecedores('Havaianas', 'Chinelo', 'João');
+
+create or replace function updade_fornecedores(empre varchar, tip varchar, referencia varchar, id integer) returns void as
+$$
+begin
+	update fornecedores
+	set empresa = empre, tipo = tip, refe = referencia
+	where cod_fornecedor = id;
+
+end;
+$$
+language plpgsql;
+
+select updade_fornecedores('ALPRAGATAS','Chinelo', 'HAVAIANAS', 1);
