@@ -59,8 +59,8 @@ class Cliente {
 		$this->setCpf($linha['cpf']);
 		$this->setSenha($linha['senha']);
 		$this->setData_Nasc(new DateTime($linha['data_nasc']));
-		//$_SESSION[Cliente::SESSION]['cod_pes'] = $linha['cod_pes'];
-		//$_SESSION[Cliente::SESSION]['nome']    = $linha['nome'];
+		$_SESSION[Cliente::SESSION]['cod_pes'] = $linha['cod_pes'];
+		$_SESSION[Cliente::SESSION]['nome']    = $linha['nome'];
 		
 	}
 	
@@ -123,6 +123,7 @@ class Cliente {
 		$this->setCod_Pessoa(0);
 		$this->setAll("", "", "", New DateTime());
 	}
+	
 	public function __toString() {
 		return json_encode(array(
 				"cod_pessoa" => $this->getCod_Pessoa(),

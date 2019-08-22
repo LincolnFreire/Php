@@ -50,7 +50,7 @@ class Fornecedor{
 		$this->setCod_fornecedor($row['cod_fornecedor']);
 		$this->setEmpresa($row['empresa']);
 		$this->setTipo($row['tipo']);
-		$this->setRef($row['ref']);
+		$this->setRef($row['refe']);
 	}
 	
 	public function loadByCod($cod) {
@@ -63,7 +63,7 @@ class Fornecedor{
 	
 	public function insert(){
 		$con = new Conexao();
-		$con->select("inserir_fornecedores(:emp, :tip, :ref)", array( ":emp" => $this->getEmpresa(),
+		$con->select("select inserir_fornecedores(:emp, :tip, :ref)", array( ":emp" => $this->getEmpresa(),
 																																	":tip" => $this->getTipo(),
 																																	":ref" => $this->getRef()
 	 																															));
@@ -77,7 +77,7 @@ class Fornecedor{
 		$sql->query("UPDATE fornecedores SET empresa = :emp, tipo = :tip, refe = :ref WHERE cod_fornecedor = :cod",
 				array(':cod' => $this->getCod_fornecedor(),
 							':emp' => $this->getEmpresa(),
-							':tipo' => $this->getTipo(),
+							':tip' => $this->getTipo(),
 							':ref' => $this->getRef()
 				));
 	}
@@ -88,5 +88,13 @@ class Fornecedor{
 	}
 	
 	
+	public function __toString() {
+		return json_encode(array(
+				"Cod_fornecedor" => $this->getCod_fornecedor(),
+				"Empresa" => $this->getEmpresa(),
+				"Tipo" => $this->getTipo(),
+				"Refe" => $this->getRef()
+	));
+	}
 	
 }

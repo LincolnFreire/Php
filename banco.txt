@@ -11,7 +11,7 @@ create table produtos(
 	quantidade integer not null,
 	valor numeric(10,2),
 	refe varchar(30),
-	Fk_forne integer,
+	fk_forne integer,
 	constraint Fk_forne foreign key (Fk_forne) references fornecedores (cod_fornecedor)  
 );
 
