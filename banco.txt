@@ -16,9 +16,11 @@ create table produtos(
 );
 
 create table cliente(
-  cod_cliente serial primary key,
+  cod_pes serial primary key,
   nome varchar(30),
-  rg varchar(20)
+  cpf varchar(20),
+  senha varchar(30),
+  data_nasc date
 );
 
 create table cli_prod(
@@ -32,6 +34,16 @@ create table cli_prod(
 	constraint Fk_produto foreign key (Fk_produto) references fornecedores(cod_fornecedor)  
 );
 
+create or replace function inserir_cliente(cod integer, nom varchar, cp varchar, sen varchar, data_nas date) returns void as
+$$
+begin
+	insert into cliente(cod_pes, nome, cpf, senha, data_nasc) values(cod, nom, cp, sen, data_nas);
+
+end;
+$$
+language plpgsql;
+
+select inserir_cliente(2, 'Maria', '76786', '123', '01/01/2000');
 
 
 drop table produtos;
@@ -88,7 +100,7 @@ end;
 $$
 language plpgsql;
 
-select inserir_fornecedores('Havaianas', 'Chinelo', 'João');
+select inserir_fornecedores('Havaianas', 'Chinelo', 'Joï¿½o');
 
 create or replace function updade_fornecedores(empre varchar, tip varchar, referencia varchar, id integer) returns void as
 $$

@@ -46,12 +46,26 @@ class Fornecedor{
 		$this->setRef($ref);
 	}
 	
+	public function setDados($row){
+		$this->setCod_fornecedor($row['cod_fornecedor']);
+		$this->setEmpresa($row['empresa']);
+		$this->setTipo($row['tipo']);
+		$this->setRef($row['ref']);
+	}
+	
+	public function loadByCod($cod) {
+		$sql = new Conexao();
+		$result = $sql->select("SELECT * FROM fornecedores where cod_fornecedor = :cod", array(":cod" => $cod));
+		
+		if(count($result) > 0)
+			$this->setDados($result[0]);
+	}
 	
 	public function insert(){
 		$con = new Conexao();
-		$con->select("inserir_fornecedore(:emp, :tip, :ref)", array(":emp" => $this->getEmpresa(),
-																																":tip" => $this->getTipo(),
-																																":ref" => $this->getRef()
+		$con->select("inserir_fornecedores(:emp, :tip, :ref)", array( ":emp" => $this->getEmpresa(),
+																																	":tip" => $this->getTipo(),
+																																	":ref" => $this->getRef()
 	 																															));
 	}
 	
@@ -60,12 +74,18 @@ class Fornecedor{
 		
 		$this->setAll($emp, $tip, $ref);
 		
-		$sql->query("UPDATE cliente SET empresa = :emp,tipo = :tip,refe = :ref",array(':emp' => $this->getEmpresa(),
-																																									':tipo' => $this->getTipo(),
-																																									':ref' => $this->getRef()
-																																									));
+		$sql->query("UPDATE fornecedores SET empresa = :emp, tipo = :tip, refe = :ref WHERE cod_fornecedor = :cod",
+				array(':cod' => $this->getCod_fornecedor(),
+							':emp' => $this->getEmpresa(),
+							':tipo' => $this->getTipo(),
+							':ref' => $this->getRef()
+				));
 	}
 	
+	public function delete(){
+		$sql = new Conexao();
+		$sql->select("DELETE FROM fornecedores WHERE cod_fornecedor = :cod",array(':cod' => $this->getCod_fornecedor()));
+	}
 	
 	
 	

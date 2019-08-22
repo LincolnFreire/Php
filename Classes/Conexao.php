@@ -11,10 +11,10 @@ class Conexao extends PDO{
 		
 		//$dns = "pgsql:host=".$host.";port=".$port.";dbname=".$name;
 		try{
-			$this->con = parent::__construct("pgsql:host=$host;port=$port;dbname=$name", $user,$pass);
+			$this->con = new PDO("pgsql:host=$host;port=$port;dbname=$name", $user,$pass);
 			//$this->con->select("SET DATESTYLE TO SQL, DMY");
 		}catch(PDOException $e){
-			echo $e->getMessagem();
+			echo $e->getMessage();
 		}
 	}
 	
