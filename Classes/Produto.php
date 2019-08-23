@@ -80,6 +80,11 @@ class Produto {
 		$this->setFornecedor($forn);
 	}
 	
+	public static function listaTodos(){
+		$con = new Conexao();
+		$res = $con->select("SELECT * FROM produtos ORDER BY cod_produto");
+		return $res;
+	}
 	public function loadByCod($cod) {
 		$sql = new Conexao();
 		$result = $sql->select("SELECT * FROM produtos where cod_produto = :cod", array(":cod" => $cod));
@@ -97,6 +102,7 @@ class Produto {
 							':forn' => $this->getFornecedor(),
 							':qtd'  => $this->getQuantidade()
 				));
+		
 	}
 	
 	
@@ -113,7 +119,7 @@ class Produto {
 		$this->setAll($nome, $qtd, $vlr, $ref, $forn);
 		
 		$sql->query("UPDATE produtos SET nome = :nome, quantidade = :qtd, valor = :vlr, refe = :ref, fk_forne = :forn  WHERE cod_produto = :cod",
-				array(':cod' => $this->getCod_produto(),
+				array(':cod'  => $this->getCod_produto(),
 							':forn' => $this->getFornecedor(),
 							':nome' => $this->getNome(),
 							':qtd'  => $this->getQuantidade(),

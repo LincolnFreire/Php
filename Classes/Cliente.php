@@ -134,6 +134,9 @@ class Cliente {
 		$_SESSION[Cliente::SESSION] = NULL;
 	}
 	
+	public static function sair(){
+		$_SESSION[Cliente::SESSION] = NULL;
+	}
 	public function __toString() {
 		return json_encode(array(
 				"cod_pessoa" => $this->getCod_Pessoa(),

@@ -1,8 +1,6 @@
 <?php
 require_once 'config.php';
 
-$c = new Cliente();
-
 
 //  $c->setCod_Pessoa(6);
 //  $c->setNome('Lincoln');
@@ -12,20 +10,13 @@ $c = new Cliente();
  
 //  $c->insert();
  
- $res = Cliente::litaTotos();
- var_dump($res);
-/*
+
   $f = new Fornecedor();
-  //$f->loadByCod(3);
-  
-  $f->setEmpresa("Alpragatas");
-  $f->setTipo("Chinelo Havaianas");
-  $f->setRef("João");
-	$f->insert(); 
+  $f->loadByCod(4);
+   
   //$f->update('Alpragatas','Chinelo-Havaianas','João');
 	//$f->delete();
   echo $f;
-*/
 	
 	//$p = new Produto();
 	/*

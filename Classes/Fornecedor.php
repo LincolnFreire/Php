@@ -65,7 +65,7 @@ class Fornecedor{
 		$con = new Conexao();
 		$res = $con->select("SELECT * FROM fornecedores ORDEr BY cod_fornecedor");
 		
-		return res;
+		return $res;
 	}
 	public function insert(){
 		$con = new Conexao();
@@ -90,7 +90,10 @@ class Fornecedor{
 	
 	public function delete(){
 		$sql = new Conexao();
-		$sql->select("DELETE FROM fornecedores WHERE cod_fornecedor = :cod",array(':cod' => $this->getCod_fornecedor()));
+		$sql->select("SELECT DELETE FROM fornecedores WHERE cod_fornecedor = :cod",array(':cod' => $this->getCod_fornecedor()));
+		var_dump($sql);
+		$this->setCod_fornecedor(0);
+		$this->setAll("", "", "");
 	}
 	
 	

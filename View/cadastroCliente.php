@@ -13,53 +13,83 @@
 
 <link rel="stylesheet" type="text/css" href="../Assets/styles.css">
 
+<script>
+	function cadastar(){
+		alert("Cadastrado com sucesso!");
+	}
+</script>
 </head>
 <body>
-	<h3>Cadastro de clientes</h3>
-	<form>
-		<div class="form-row">
-			<div class="form-group col-md-6">
-				<label for="inputZip">Codígo</label> <input type="number"
-					class="form-control" id="inputEmail4" placeholder="Email">
+	<header>
+		<a href="login.php">
+			<img alt="logo" src="../Assets/img/logo.png">
+		</a>	
+			<h3>Cadastro de clientes</h3>			
+	</header>
+	  
+	<div class="cadastro">
+	
+	
+	<form method="POST">
+			<div class="form-row">
+				<div class="form-group col-md-3">
+					<label>Codígo do Cliente</label> 
+					<input type="number" name="cod" class="form-control" placeholder="Codígo do Cliente">
+				</div>
+				
+				<div class="form-group col-md-4 ">
+					<label>Senha do Cliente</label>
+					<input type="password" name="pass" class="form-control" 	placeholder="Senha do Cliente">
+				</div>
 			</div>
-			<div class="form-group col-md-6">
-				<label for="inputPassword4">Password</label> <input type="password"
-					class="form-control" id="inputPassword4" placeholder="Password">
+			
+			<div class="form-row">
+				<div class="form-group col-md-4">
+					<label>Nome</label> 
+					<input type="text" name ="nome" class="form-control" placeholder="Seu nome">
+				</div>
+				<div class="form-group col-md-3">
+					<label>Data</label> <input type="date" name="dat" class="form-control">
+				</div>
+			
 			</div>
-		</div>
-		<div class="form-group">
-			<label for="inputAddress">Address</label> <input type="text"
-				class="form-control" id="inputAddress" placeholder="1234 Main St">
-		</div>
-		<div class="form-group">
-			<label for="inputAddress2">Address 2</label> <input type="text"
-				class="form-control" id="inputAddress2"
-				placeholder="Apartment, studio, or floor">
-		</div>
-		<div class="form-row">
-			<div class="form-group col-md-6">
-				<label for="inputCity">City</label> <input type="text"
-					class="form-control" id="inputCity">
+			
+			<div class="form-row">
+				<div class="form-group col-md-3">
+					<label>CPF</label> <input type="text" name="cpf" class="form-control"
+							placeholder="694.694.666-24">
+				</div>
 			</div>
-			<div class="form-group col-md-4">
-				<label for="inputState">State</label> <select id="inputState"
-					class="form-control">
-					<option selected>Choose...</option>
-					<option>...</option>
-				</select>
-			</div>
-			<div class="form-group col-md-2">
-				<label for="inputZip">Zip</label> <input type="text"
-					class="form-control" id="inputZip">
-			</div>
-		</div>
-		<div class="form-group">
-			<div class="form-check">
-				<input class="form-check-input" type="checkbox" id="gridCheck"> <label
-					class="form-check-label" for="gridCheck"> Check me out </label>
-			</div>
-		</div>
-		<button type="submit" class="btn btn-primary">Sign in</button>
+			<br/><br/><br/><br/>	<br/><br/><br/>
+		
+			
+		<div class="form-goup col-md-4">
+			<button type="submit" class="btn btn-outline-dark">Cadastrar</button>
+		
+		</div>			
 	</form>
+	
+	</div>
+	<footer class="footer">
+		<b>© 2019 Lincoln Aguiar</b>
+	</footer>
 </body>
 </html>
+
+<?php 
+
+if((isset($_POST["cod"]) && isset($_POST["pass"]) && isset($_POST["nome"]) && isset($_POST["dat"]) && isset($_POST["cpf"])) &&
+		(!empty($_POST["cod"]) && !empty($_POST["pass"]) && !empty($_POST["nome"]) && !empty($_POST["dat"]) && !empty($_POST["cpf"]))){	
+		require_once("config.php");
+		$c = new Cliente(); 
+		$c->setCod_Pessoa($_POST['cod']);
+		$c->setSenha( $_POST['pass']);
+		$c->setNome($_POST['nome']);
+		$c->setData_Nasc($_POST['dat']);
+		$c->setCpf($_POST['cpf']);
+		$c->insert();
+		echo  "<script>alert('Cadastrado com Sucesso!');</script>";
+	}
+		
+	
+	

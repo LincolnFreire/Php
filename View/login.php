@@ -61,7 +61,7 @@
 		$senha = $_POST['pass'];
 		 
 		if($c->login($cod, $senha)){
-			header("Location: cadastroCliente.php");
+			header("Location: inicio.php");
 			exit();
 		}
 		echo "Senha invalida";
