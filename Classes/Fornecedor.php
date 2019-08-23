@@ -61,6 +61,12 @@ class Fornecedor{
 			$this->setDados($result[0]);
 	}
 	
+	public static function litasTodos(){
+		$con = new Conexao();
+		$res = $con->select("SELECT * FROM fornecedores ORDEr BY cod_fornecedor");
+		
+		return res;
+	}
 	public function insert(){
 		$con = new Conexao();
 		$con->select("select inserir_fornecedores(:emp, :tip, :ref)", array( ":emp" => $this->getEmpresa(),

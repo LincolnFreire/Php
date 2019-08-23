@@ -73,10 +73,12 @@ class Cliente {
 	
 	public function loadByCod($cod) {
 		$sql = new Conexao();
-		$result = $sql->select("SELECT * FROM pessoa where cod_pessoa = :cod", array(":cod" => $cod));
+		$result = $sql->select("SELECT * FROM cliente where cod_pes = :cod", array(":cod" => $cod));
 		
 		if(count($result) > 0)
 			$this->setDados($result[0]);
+		
+		return $result[0];
 	}
 	
 	public function login($cod,$senha){
@@ -91,6 +93,13 @@ class Cliente {
 			return false;
 	}
 	
+	public static function litaTotos(){
+		$con = new Conexao();
+		
+		$res = $con->select("SELECT * FROM cliente ORDER BY cod_pes");
+		
+		return $res;
+	}
 	public function insert() {
 		$sql = new Conexao();
 
@@ -103,7 +112,7 @@ class Cliente {
 	}
 	
 	
-	public function update($nome ,$cpf , $senha, $data){
+	public function update($nome ,$cpf , $senha, $data=""){
 		$sql = new Conexao();
 		
 		$this->setAll($nome, $cpf, $senha, $data);
@@ -122,6 +131,7 @@ class Cliente {
 		$sql->select("DELETE FROM cliente WHERE cod_pes = :cod",array(':cod' => $this->getCod_Pessoa()));
 		$this->setCod_Pessoa(0);
 		$this->setAll("", "", "", New DateTime());
+		$_SESSION[Cliente::SESSION] = NULL;
 	}
 	
 	public function __toString() {
